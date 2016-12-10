@@ -42,11 +42,15 @@ curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
 }
 ```
 
-
-
-
 Errors
 ---------------
+Errors are communicated through http return codes. Codes that are returned by BloomAPI include
+
+* 400: User error such as invalid parameters
+* 404: API endpoint or entity not found
+* 5xx: Server error. Likely caused by a bug in BloomAPI
+
+`400` errors also include a JSON response object explaining the cause of the error
 
 API Key
 ---------------
