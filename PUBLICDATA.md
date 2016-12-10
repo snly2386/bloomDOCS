@@ -35,13 +35,13 @@ curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
     }
   ]
 }
+```
 
 | Name          | Description
 | ------------- |:-------------:|
 | meta          | Information related to the query such as number or results or warning messages |
 | results       | Payload response such as the data being queried for                            |
 
-```
 
 Errors
 ---------------
