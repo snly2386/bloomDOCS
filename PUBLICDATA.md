@@ -1,9 +1,9 @@
 Introduction
 =======
 
-BloomAPI Public Data is a way to programatically access public datasets. It may be used from sites such as  or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI Public Data.
+BloomAPI Public Data is a way to programatically access public datasets. It may be used from sites such as <www.bloomapi.com/search> or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI Public Data.
 
-Note that anything marked as in this documentation may be removed without warning in a future release. If you’d like to depend on these features in production, sign up for an account or consider hosting your own copy of BloomAPI Public Data.
+Note that anything marked as *Experimental* in this documentation may be removed without warning in a future release. If you’d like to depend on these features in production, sign up for an account or consider hosting your own copy of BloomAPI Public Data.
 
 Getting started
 ---------------
