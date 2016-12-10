@@ -17,11 +17,6 @@ Experimental JSONP is currently supported by providing a `callback` method throu
 
 All responses are JSON objects with the following parameters
 
-| Name          | Description
-| ------------- |:-------------:|
-| meta          | Information related to the query such as number or results or warning messages |
-| results       | Payload response such as the data being queried for                            |
-
 ``` javascript
 Example 200 Response
 ```
@@ -40,6 +35,12 @@ curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
     }
   ]
 }
+
+| Name          | Description
+| ------------- |:-------------:|
+| meta          | Information related to the query such as number or results or warning messages |
+| results       | Payload response such as the data being queried for                            |
+
 ```
 
 Errors
