@@ -66,65 +66,35 @@ Example 400 Response
 API Key
 ---------------
 
-Create a file based on the template, which has a bare DOM, link to the
-scripts, and a link to a theme. It will look something like this (not exact).
-For GitHub projects, simply place this file in your [GitHub pages] branch and
-you're all good to go.
+Development access at <http://www.bloomapi.com/api> is available without an API key, however, for production access, for https access, or for access to private data sources — an API key is required. Some of the current private datasources include:
 
-*In short: just download this file and upload it somewhere.*
+* Federal Sanctions List
+* PECOS
+* Hospital Compare
+* ICD-9/10/ Crosswalks
+* HCPCS
+* FDA NDC
+* AHRQ files
+* CCLF (Claims and Claims Line Feed)
+* If you are interested in datasources such as these or unlimited production access, you’ll need a  BloomAPI Account.
 
-The main JS and CSS files are also available in [npm] and [bower].
+Sign Up to request an API Key.
 
-[Default theme template >][template]
-
-[Blank template >][blank]
-
-[bower]: http://bower.io/search/?q=flatdoc
-[npm]: https://www.npmjs.org/package/flatdoc
-
-### Via GitHub
-
-To fetch a Github Repository's readme file, use the `Flatdoc.github` fetcher.
-This will fetch the Readme file of the repository's default branch.
+Once you have an API key, it can be added to any request by adding the parameter secret to any request.
 
 ``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.github('USER/REPO')
-});
+Example Usage of API Key
+
+https://www.bloomapi.com/api/search/usgov.hhs.npi?secret=:api_key_here&key1=practice_address.zip&op1=eq&value1=98101
 ```
 
-You may also fetch another file other than the Readme file, just specify it as
-the 2nd parameter.
+Programatic Clients
+=======
 
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.github('USER/REPO', 'Changelog.md')
-});
-```
 
-After you've done this, you probably want to deploy it via [GitHub Pages].
 
-[GitHub Pages guide >][GitHub Pages]
 
-### Via a file
 
-You may also fetch a file. In this example, this fetches the file `Readme.md` in
-the same folder as the HTML file.
-
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.file('Readme.md')
-});
-```
-
-You may actually supply any URL here. It will be fetched via AJAX. This is
-useful for local testing.
-
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.file('http://yoursite.com/Readme.md')
-});
-```
 
 How it works
 ------------
