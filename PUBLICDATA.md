@@ -19,6 +19,12 @@ Calling
 
 BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/> or at the url of your own deployment.
 
+``` javascript
+Flatdoc.run({
+  fetcher: Flatdoc.github('USER/REPO')
+});
+```
+
 Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
 All responses are JSON objects with the following parameters.
