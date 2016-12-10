@@ -19,11 +19,9 @@ All responses are JSON objects with the following parameters
 
 ``` javascript
 Example 200 Response
-```
-``` javascript
+
 curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
-```
-``` javascript
+
 { "meta":
   {
     "count": 1923
