@@ -1,20 +1,9 @@
-Flatdoc
+Introduction
 =======
 
-Flatdoc is a small JavaScript file that fetches Markdown files and renders them
-as full pages. Essentially, it's the easiest
-way to make open source documentation from *Readme* files.
+BloomAPI Public Data is a way to programatically access public datasets. It may be used from sites such as  or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI Public Data.
 
- * No server-side components
- * No build process needed
- * Deployable via GitHub Pages
- * Can fetch GitHub Readme files
- * Gorgeous default theme (and it's responsive)
- * Just create an HTML file and deploy!
-
-*Current version: [v0.9.0][dist]*
-
-[![Build Status](https://travis-ci.org/rstacruz/flatdoc.svg?branch=gh-pages)](https://travis-ci.org/rstacruz/flatdoc)
+Note that anything marked as in this documentation may be removed without warning in a future release. If you’d like to depend on these features in production, sign up for an account or consider hosting your own copy of BloomAPI Public Data.
 
 Getting started
 ---------------
