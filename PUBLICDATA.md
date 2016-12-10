@@ -49,7 +49,19 @@ Errors are communicated through http return codes. Codes that are returned by Bl
 * 404: API endpoint or entity not found
 * 5xx: Server error. Likely caused by a bug in BloomAPI
 
+``` javascript
+Example 400 Response
+
+{
+  "error:": "Error message",
+  "type": "parameter|fatal",
+  "details": {
+    "some-key": "An object that represents this error type"
+  }
+}
+
 `400` errors also include a JSON response object explaining the cause of the error
+```
 
 API Key
 ---------------
