@@ -23,23 +23,26 @@ All responses are JSON objects with the following parameters.
 | meta          | Information related to the query such as number or results or warning messages |
 | results       | Payload response such as the data being queried for                            |
 
-    ```
-      Example 200 Response
 
-      curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
+> Example 200 Response
 
-      { "meta":
-        {
-          "count": 1923
-        },
-        "result": [
-          {
-            "npi": 1111111111,
-            "type": "individual"
-          }
-        ]
+>  curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
+
+```javascript
+
+  { "meta":
+    {
+      "count": 1923
+    },
+    "result": [
+      {
+        "npi": 1111111111,
+        "type": "individual"
       }
-    ```
+    ]
+  }
+```
+
 
 Errors
 ---------------
