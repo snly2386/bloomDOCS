@@ -5,11 +5,6 @@ BloomAPI Public Data is a way to programatically access public datasets. It may 
 
 Note that anything marked as *Experimental* in this documentation may be removed without warning in a future release. If you’d like to depend on these features in production, sign up for an account or consider hosting your own copy of BloomAPI Public Data.
 
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.github('USER/REPO')
-});
-```
 
 API Usage
 =======
@@ -18,12 +13,6 @@ Calling
 ---------------
 
 BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/> or at the url of your own deployment.
-
-``` javascript
-Flatdoc.run({
-  fetcher: Flatdoc.github('USER/REPO')
-});
-```
 
 Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
@@ -34,23 +23,23 @@ All responses are JSON objects with the following parameters.
 | meta          | Information related to the query such as number or results or warning messages |
 | results       | Payload response such as the data being queried for                            |
 
-``` javascript
-Example 200 Response
+    ```
+      Example 200 Response
 
-curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
+      curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
 
-{ "meta":
-  {
-    "count": 1923
-  },
-  "result": [
-    {
-      "npi": 1111111111,
-      "type": "individual"
-    }
-  ]
-}
-```
+      { "meta":
+        {
+          "count": 1923
+        },
+        "result": [
+          {
+            "npi": 1111111111,
+            "type": "individual"
+          }
+        ]
+      }
+    ```
 
 Errors
 ---------------
