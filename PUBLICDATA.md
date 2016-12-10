@@ -15,7 +15,7 @@ BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/
 
 Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
-All responses are JSON objects with the following parameters
+All responses are JSON objects with the following parameters.
 
 ``` javascript
 Example 200 Response
@@ -45,9 +45,9 @@ Errors
 ---------------
 Errors are communicated through http return codes. Codes that are returned by BloomAPI include
 
-* 400: User error such as invalid parameters
-* 404: API endpoint or entity not found
-* 5xx: Server error. Likely caused by a bug in BloomAPI
+* 400: User error such as invalid parameters.
+* 404: API endpoint or entity not found.
+* 5xx: Server error. Likely caused by a bug in BloomAPI.
 
 ``` javascript
 Example 400 Response
