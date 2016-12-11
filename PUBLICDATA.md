@@ -21,12 +21,13 @@ BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/
  ```
 Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
+All responses are JSON objects with the following parameters.
+
 | Name          | Description
 | ------------- |:-------------:|
 | meta          | Information related to the query such as number or results or warning messages |
 | results       | Payload response such as the data being queried for                            |
 
-All responses are JSON objects with the following parameters.
 
 
  ``` javascript
@@ -56,8 +57,7 @@ Errors are communicated through http return codes. Codes that are returned by Bl
 Example 400 Response
 ```
 
-400 errors also include a JSON response object explaining the cause of the error
-* 400: User error such as invalid parameters.
+400 errors also include a JSON response object explaining the cause of the error.
 
 ``` javascript
 
@@ -70,8 +70,11 @@ Example 400 Response
 }
 
 ```
+
+* 400: User error such as invalid parameters.
 * 404: API endpoint or entity not found.
 * 5xx: Server error. Likely caused by a bug in BloomAPI.
+
 
 
 API Key
@@ -126,29 +129,14 @@ Returns search results given a datasource. `:source` should be replaced by the d
 
 ### Parameters
 
-* `key` name of field to filter by. Replace * with any number to set the 'index number’. The index number is used to associate keys with an 'op’ and 'value’.
-
 ``` javascript
   Examples
-  Query for all clinicians that practice in the zipcode ‘98101’
 ```
 
+* `key` name of field to filter by. Replace * with any number to set the 'index number’. The index number is used to associate keys with an 'op’ and 'value’.
 * `op` search operation to apply for a given index number. Currently supports the following values:
   ..* eq exact match
   ..* gt greater than
-
-``` javascript
-
-  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
-
-  Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
-```
-
-
-``` javascript
-  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
-```
-
   ..* lt less than
   ..* gte greater than or equal
   ..* lte less than or equal
@@ -157,6 +145,18 @@ Returns search results given a datasource. `:source` should be replaced by the d
 * value* value to search for given an index number. String must be uppercase.
 * limit optional, sets the maximum number of records to return. Default is 20 and maximum is 100
 * offset optional, sets a number of records to skip before returning. Default is 0
+
+``` javascript
+  Query for all clinicians that practice in the zipcode ‘98101’
+
+  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+
+  Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
+
+  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
+
+```
+
 
 ### Response Fields
 
