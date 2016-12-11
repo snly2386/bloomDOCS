@@ -14,7 +14,7 @@ Calling
 
 BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/> or at the url of your own deployment.
 
-```javascript
+``` javascript
  Example 200 Response
 
  curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
@@ -60,7 +60,7 @@ Example 400 Response
   }
 }
 
-`400` errors also include a JSON response object explaining the cause of the error
+400 errors also include a JSON response object explaining the cause of the error
 ```
 * 400: User error such as invalid parameters.
 * 404: API endpoint or entity not found.
@@ -111,6 +111,44 @@ There are a number of libraries written for BloomAPI Public Data. Several are li
 
 Endpoints
 =======
+
+/api/search/:source
+------------
+
+Returns search results given a datasource. `:source` should be replaced by the datasource your currently searching (for example, `usgov.hhs.npi`).
+
+### Parameters
+
+* `key` name of field to filter by. Replace * with any number to set the 'index number’. The index number is used to associate keys with an 'op’ and 'value’.
+
+``` javascript
+  Examples
+
+  Query for all clinicians that practice in the zipcode ‘98101’
+
+  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+
+  Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
+
+  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
+```
+
+* `op` search operation to apply for a given index number. Currently supports the following values:
+  ..* eq exact match
+  ..* gt greater than
+  ..* lt less than
+  ..* gte greater than or equal
+  ..* lte less than or equal
+  ..* prefix experimental matches the prefix of the string. Useful for real-time search/ autocomplete.
+  ..* fuzzy experimental uses a fuzzy match search. Useful for correcting spelling errors.
+* value* value to search for given an index number. String must be uppercase.
+* limit optional, sets the maximum number of records to return. Default is 20 and maximum is 100
+* offset optional, sets a number of records to skip before returning. Default is 0
+
+### Response Fields
+
+This depends on the data sources used. See the Data Sources section for a description of fields for a given data source.
+
 
 
 
