@@ -18,8 +18,17 @@ BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/
  Example 200 Response
 
  curl -XGET https://www.bloomapi.com/api/search/usgov.hhs.npi
+ ```
+Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
+All responses are JSON objects with the following parameters.
 
+| Name          | Description
+| ------------- |:-------------:|
+| meta          | Information related to the query such as number or results or warning messages |
+| results       | Payload response such as the data being queried for                            |.
+
+ ``` javascript
   { "meta":
     {
       "count": 1923
@@ -33,14 +42,7 @@ BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/
   }
 ```
 
-Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
-All responses are JSON objects with the following parameters.
-
-| Name          | Description
-| ------------- |:-------------:|
-| meta          | Information related to the query such as number or results or warning messages |
-| results       | Payload response such as the data being queried for                            |
 
 
 
