@@ -53,6 +53,12 @@ Errors are communicated through http return codes. Codes that are returned by Bl
 
 ``` javascript
 Example 400 Response
+```
+
+400 errors also include a JSON response object explaining the cause of the error
+* 400: User error such as invalid parameters.
+
+``` javascript
 
 {
   "error:": "Error message",
@@ -62,9 +68,7 @@ Example 400 Response
   }
 }
 
-400 errors also include a JSON response object explaining the cause of the error
 ```
-* 400: User error such as invalid parameters.
 * 404: API endpoint or entity not found.
 * 5xx: Server error. Likely caused by a bug in BloomAPI.
 
