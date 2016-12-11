@@ -47,11 +47,7 @@ All responses are JSON objects with the following parameters.
 
 Errors
 ---------------
-Errors are communicated through http return codes. Codes that are returned by BloomAPI include
-
-* 400: User error such as invalid parameters.
-* 404: API endpoint or entity not found.
-* 5xx: Server error. Likely caused by a bug in BloomAPI.
+Errors are communicated through http return codes. Codes that are returned by BloomAPI include.
 
 ``` javascript
 Example 400 Response
@@ -66,6 +62,10 @@ Example 400 Response
 
 `400` errors also include a JSON response object explaining the cause of the error
 ```
+* 400: User error such as invalid parameters.
+* 404: API endpoint or entity not found.
+* 5xx: Server error. Likely caused by a bug in BloomAPI.
+
 
 API Key
 ---------------
