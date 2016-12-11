@@ -127,24 +127,24 @@ Returns search results given a datasource. `:source` should be replaced by the d
 
 * `key` name of field to filter by. Replace * with any number to set the 'index number’. The index number is used to associate keys with an 'op’ and 'value’.
 
-``` html
-    <h1>Examples</h1>
-    <h3>Query for all clinicians that practice in the zipcode ‘98101’</h3>
-```
-``` javascript
-
-  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
-```
-``` html
-  <h3>Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode </h3>'943012302’
-```
-``` javascript
-  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
-```
+  <  Examples
+  <  Query for all clinicians that practice in the zipcode ‘98101’
 
 * `op` search operation to apply for a given index number. Currently supports the following values:
   ..* eq exact match
   ..* gt greater than
+
+``` javascript
+
+  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+```
+
+  < Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
+
+``` javascript
+  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
+```
+
   ..* lt less than
   ..* gte greater than or equal
   ..* lte less than or equal
