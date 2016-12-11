@@ -95,8 +95,22 @@ https://www.bloomapi.com/api/search/usgov.hhs.npi?secret=:api_key_here&key1=prac
 Programatic Clients
 =======
 
+There are a number of libraries written for BloomAPI Public Data. Several are listed below. Please Let us know if you’ve created your own client so we can list here.
 
+#### NODE.JS/ BROWSER JAVASCRIPT
 
+* BloomJS created by Micheal Wasser.
+
+### .NET
+
+* BloomAPI.net created by Michael Wasser.
+
+### RUBY
+
+* bloom_api Gem created by Dan Carpenter.
+
+Endpoints
+=======
 
 
 
