@@ -163,190 +163,141 @@ Returns search results given a datasource. `:source` should be replaced by the d
 This depends on the data sources used. See the Data Sources section for a description of fields for a given data source.
 
 
-
-
-How it works
+/api/sources
 ------------
 
-Flatdoc is a hosted `.js` file (along with a theme and its assets) that you can
-add into any page hosted anywhere.
 
-#### All client-side
+Returns the current datasources and their status.
 
-There are no build scripts or 3rd-party services involved. Everything is done in
-the browser. Worried about performance? Oh, It's pretty fast.
+### Response Fields
 
-Flatdoc utilizes the [GitHub API] to fetch your project's Readme files. You may
-also configure it to fetch any arbitrary URL via AJAX.
+The result will be an array of data sources.
 
-#### Lightning-fast parsing
+| Field         | Description
+| ------------- |:-------------:|
+| source        | Identifier of datasource. The only datasource is 'NPI’ for now              |
+| updated       | Timestamp of the last time the datasource was updated                       |
+| check         | Timestamp of the last time BloomAPI checked for additional data for this  datasource                                                                                    |
+| status        |  Legacy field. Will always `READY`                                          |
 
-Next, it uses [marked], an extremely fast Markdown parser that has support for
-GitHub flavored Markdown.
 
-Flatdoc then simply renders *menu* and *content* DOM elements to your HTML
-document. Flatdoc also comes with a default theme to style your page for you, or
-you may opt to create your own styles.
-
-Markdown extras
----------------
-
-Flatdoc offers a few harmless, unobtrusive extras that come in handy in building
-documentation sites.
-
-#### Code highlighting
-
-You can use Markdown code fences to make syntax-highlighted text. Simply
-surround your text with three backticks. This works in GitHub as well.
-See [GitHub Syntax Highlighting][fences] for more info.
-
-    ``` html
-    <strong>Hola, mundo</strong>
-    ```
-
-#### Blockquotes
-
-Blockquotes show up as side figures. This is useful for providing side
-information or non-code examples.
-
-> Blockquotes are blocks that begin with `>`.
-
-#### Smart quotes
-
-Single quotes, double quotes, and double-hyphens are automatically replaced to
-their typographically-accurate equivalent. This, of course, does not apply to
-`<code>` and `<pre>` blocks to leave code alone.
-
-> "From a certain point onward there is no longer any turning back. That is the
-> point that must be reached."
-> --Franz Kafka
-
-#### Buttons
-
-If your link text has a `>` at the end (for instance: `Continue >`), they show
-up as buttons.
-
-> [View in GitHub >][project]
-
-Customizing
-===========
-
-Basic
------
-
-### Theme options
-
-For the default theme (*theme-white*), You can set theme options by adding
-classes to the `<body>` element. The available options are:
-
-#### big-h3
-Makes 3rd-level headings bigger.
-
-``` html
-<body class='big-h3'>
-```
-
-#### no-literate
-Disables "literate" mode, where code appears on the right and content text
-appear on the left.
-
-``` html
-<body class='no-literate'>
-```
-
-#### large-brief
-Makes the opening paragraph large.
-
-``` html
-<body class='large-brief'>
-```
-
-### Adding more markup
-
-You have full control over the HTML file, just add markup wherever you see fit.
-As long as you leave `role='flatdoc-content'` and `role='flatdoc-menu'` empty as
-they are, you'll be fine.
-
-Here are some ideas to get you started.
-
- * Add a CSS file to make your own CSS adjustments.
- * Add a 'Tweet' button on top.
- * Add Google Analytics.
- * Use CSS to style the IDs in menus (`#acknowledgements + p`).
-
-### JavaScript hooks
-
-Flatdoc emits the events `flatdoc:loading` and `flatdoc:ready` to help you make
-custom behavior when the document loads.
-
-``` js
-$(document).on('flatdoc:ready', function() {
-  // I don't like this section to appear
-  $("#acknowledgements").remove();
-});
-```
-
-Full customization
-------------------
-
-You don't have to be restricted to the given theme. Flatdoc is just really one
-`.js` file that expects 2 HTML elements (for *menu* and *content*). Start with
-the blank template and customize as you see fit.
-
-[Get blank template >][template]
-
-Misc
-====
-
-Inspirations
+/api/sources/:source/:id
 ------------
 
-The following projects have inspired Flatdoc.
+Returns a specific element of a particular source. For example, the NPI’s :id would be an NPI to return information for.
 
- * [Backbone.js] - Jeremy's projects have always adopted this "one page
- documentation" approach which I really love.
+```
+    Example
 
- * [Docco] - Jeremy's Docco introduced me to the world of literate programming,
- and side-by-side documentation in general.
+    The following would return the details of the NPI 1376954206.
+```
 
- * [Stripe] - Flatdoc took inspiration on the look of their API documentation.
+``` javascript
+  GET http://www.bloomapi.com/api/sources/usgov.hhs.npi/1376954206
+```
 
- * [DocumentUp] - This service has the same idea but does a hosted readme
- parsing approach.
+DATA SOURCES
+=======
 
-Attributions
-------------
+#### usgov.hhs.npi
 
-[Photo](http://www.flickr.com/photos/doug88888/2953428679/) taken from Flickr,
-licensed under Creative Commons.
+Each field’s description is directly from the NPI dissemination documentation present in the dissemination files. Source fields are the name of the column in the source CSVs before they are translated for bloomapi.
 
-Acknowledgements
-----------------
+Field metadata will be included soon
 
-© 2013, 2014, Rico Sta. Cruz. Released under the [MIT
-License](http://www.opensource.org/licenses/mit-license.php).
+#### usgov.hhs.hcpcs
 
-**Flatdoc** is authored and maintained by [Rico Sta. Cruz][rsc] with help from its
-[contributors][c].
+CMS HCPCS codes as documented at <https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets/index.html>
 
- * [My website](http://ricostacruz.com) (ricostacruz.com)
- * [Github](http://github.com/rstacruz) (@rstacruz)
- * [Twitter](http://twitter.com/rstacruz) (@rstacruz)
+Field metadata will be included soon
 
-[rsc]: http://ricostacruz.com
-[c]:   http://github.com/rstacruz/flatdoc/contributors
+#### usgov.hhs.pecos
 
-[GitHub API]: http://github.com/api
-[marked]: https://github.com/chjj/marked
-[Backbone.js]: http://backbonejs.org
-[dox]: https://github.com/visionmedia/dox
-[Stripe]: https://stripe.com/docs/api
-[Docco]: http://jashkenas.github.com/docco
-[GitHub pages]: https://pages.github.com
-[fences]:https://help.github.com/articles/github-flavored-markdown#syntax-highlighting
-[DocumentUp]: http://documentup.com
+Provider Enrollment and Certification data as documented by CMS
 
-[project]: https://github.com/rstacruz/flatdoc
-[template]: https://github.com/rstacruz/flatdoc/raw/gh-pages/templates/template.html
-[blank]: https://github.com/rstacruz/flatdoc/raw/gh-pages/templates/blank.html
-[dist]: https://github.com/rstacruz/flatdoc/tree/gh-pages/v/0.9.0
+Field metadata will be included soon
+
+#### usgov.hhs.medicare_specialty_codes
+
+Medicare Specialty Code to Provider Taxonomy Code mapping from CMS
+
+Field metadata will be included soon
+
+#### nucc.hcpt
+
+Provider Taxonomy Codes as provided by NUCC
+
+Field Metadata will be included soon
+
+#### usgov.hhs.icd_9_cm
+
+ICD 9 CM Diagnosis Codes as provided by CMS
+
+#### usgov.hhs.icd_10_cm
+
+2015 ICD 10 CM Codes as provided by CMS
+
+#### usgov.hhs.icd_9_gems
+
+2015 ICD 9 to 10 GEMS as provided by CMS
+
+#### usgov.hhs.icd_10_gems
+
+2015 ICD 10 to 9 GEMS as provided by CMS
+
+#### Other
+
+BloomAPI Public Data is great at loading complex datasets quickly. We also support loading from many other datasources that require private data such as:
+
+* Claims and Claims Line Feed
+* AHRQ inpatient/ outpatient/ emergency databases
+* HL7v2
+* CCDs (HL7v3)
+
+If you’d like access to an API with data from one of the above or would like another datasource to be included, please contact support
+
+DEPLOY
+=======
+
+Deploy your own copy of BloomAPI to gain higher performance or high availability to meet your own SLAs. Alternatively deploy it to gain an on-site database containing the most recent copies of datasets such as the NPI.
+
+Note that if you are just looking to setup bloomapi locally — the detailed setup instructions in the Contribute page may be easier to follow. This section is more about deploying BloomAPI in a production environment.
+
+A BloomAPI deployment is made up of four core components
+
+1. API service
+1. Data worker/ processor service
+3. PostgreSQL (version 9.3)
+4. ElasticSearch (version 1.4)
+
+Both the API service and the Data worker are written in Go and can be compiled using the `go install` command. Dependencies in each project are managed using the Godep tool.
+
+Once Go (1.3+) has been installed and configured with a GOPATH, and Godep has been installed, you can clone the repositories using
+
+`go get github.com/untoldone/bloomapi`
+
+`go get github.com/gocodo/bloomnpi`
+
+Once fetched, change into each of the bloomapi/ npi source directory roots and run godep restore.
+
+Run `go install github.com/untoldone/bloomapi github.com/gocodo/bloomnpi` to build the code into your $GOPATH/bin directory. If you are running on a mac, but want to cross-compile for a linux system, you can run make from the bloomapi/ npi source directories. If cross-compiling, the go binaries `gox and gonative` must also be installed and configured.
+
+Once compiled, copy the bloomapi binary from $GOPATH/bin, and config.toml, bootstrap.sql, and drop.sql from the bloomapi source directory to an install directory of your choice. For the bloomnpi binary, copy the binary, config.toml, and the sql directory to a different install directory. Create a data directory in the destination for bloomnpi as well.
+
+Edit both `config.toml` files to point to your postgresql and elasticsearch deployments.
+
+Once compiled and configured, you must bootstrap your environment as follows
+
+`[bloomapi install path]/bloomapi bootstrap`
+
+`[bloomnpi install path]/bloomnpi bootstrap`
+
+`[bloomnpi install path]/bloomnpi fetch`
+
+`[bloomnpi install path]/bloomnpi search-index`
+
+This will download and index available datasources.
+
+It will likely make sense to add fetch and search-index as a cron job to ensure your datasets are updated on a regular basis.
+
+Finally, to start the api, run `bloomapi server`. This will start the server on the port specified in your config.toml file.
