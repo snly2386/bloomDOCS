@@ -21,12 +21,13 @@ BloomAPI is a http-based API. It can be queried at <http://www.bloomapi.com/api/
  ```
 Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
-All responses are JSON objects with the following parameters.
-
 | Name          | Description
 | ------------- |:-------------:|
 | meta          | Information related to the query such as number or results or warning messages |
-| results       | Payload response such as the data being queried for                            |.
+| results       | Payload response such as the data being queried for                            |
+
+All responses are JSON objects with the following parameters.
+
 
  ``` javascript
   { "meta":
@@ -127,8 +128,10 @@ Returns search results given a datasource. `:source` should be replaced by the d
 
 * `key` name of field to filter by. Replace * with any number to set the 'index number’. The index number is used to associate keys with an 'op’ and 'value’.
 
-  <  Examples
-  <  Query for all clinicians that practice in the zipcode ‘98101’
+``` javascript
+  Examples
+  Query for all clinicians that practice in the zipcode ‘98101’
+```
 
 * `op` search operation to apply for a given index number. Currently supports the following values:
   ..* eq exact match
@@ -137,9 +140,10 @@ Returns search results given a datasource. `:source` should be replaced by the d
 ``` javascript
 
   GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+
+  Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
 ```
 
-  < Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
 
 ``` javascript
   GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
