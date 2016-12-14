@@ -131,7 +131,7 @@ To specify an portal to extract records from, send the `org_id` field from the d
 
 Arguments:
 
-| Name          | type          | Description                  |
+| Name          | type          | Description                  |          |
 | ------------- |:-------------:|:----------------------------:|:---------|
 | orgId         | integer       | ID for target patient portal | Required |
 | username      | string        | Patient’s username for target| Required |
@@ -159,20 +159,6 @@ The release will move through the following states:
 2. `authenticated`: BloomAPI has authenticated with the patient portal. This will generally happen within 30 seconds of a request
 3. `complete`: BloomAPI has retrieved records and they are made available in the response
 There is an additional failure state that indicates an internal error has occurred with extracting records from this portal.
-
-Here’s a current complete list of record types that can be requested:
-
-| Name          | Description
-| ------------- |:-------------:|
-| Problems      | Problems list                         |
-| Procedures    | Procedures list                       |
-| History       | Health History                        |
-| Medications   | Current/Historical Medications        |
-| Immunizations | Immunization History                  |
-| Vitals        | Historical Vitals                     |
-| results       | Lab results                           |
-| Encounters    | Descriptions of Historical Encounters |
-
 
 ``` javascript
   curl -XGET "https://www.bloomapi.com/api/yourchart/a4785854-8489-493a-9b8f-6bd886dba072?secret=<secret key>"
@@ -211,3 +197,18 @@ Here’s a current complete list of record types that can be requested:
     }
   }
 ```
+
+Here’s a current complete list of record types that can be requested:
+
+| Name          | Description
+| ------------- |:-------------:|
+| Problems      | Problems list                         |
+| Procedures    | Procedures list                       |
+| History       | Health History                        |
+| Medications   | Current/Historical Medications        |
+| Immunizations | Immunization History                  |
+| Vitals        | Historical Vitals                     |
+| results       | Lab results                           |
+| Encounters    | Descriptions of Historical Encounters |
+
+
