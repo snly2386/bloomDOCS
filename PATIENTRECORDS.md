@@ -1,9 +1,11 @@
 Introduction
 =======
 
-BloomAPI Public Data is a way to programatically access public datasets. It may be used from sites such as <www.bloomapi.com/search> or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI Public Data.
+**This API is in active development. If you’d like to receive beta access, please contact Bloom Support**
 
-Note that anything marked as *Experimental* in this documentation may be removed without warning in a future release. If you’d like to depend on these features in production, sign up for an account or consider hosting your own copy of BloomAPI Public Data.
+The Patient Health Record API is an API to retrieve structured health record data from healthcare providers (Covered Entities) on behalf of patients. The API helps organizations identify patient portals and make requests of them. Once the results are retrieved, the results may be fetched from BloomAPI.
+
+Structured digital data is available for health systems that provide patient portals. Supply a patient’s username and password and BloomAPI will fetch structured results from these sources within minutes. BloomAPI currently supports more than 320 different health systems using this methodology.
 
 
 API Usage
@@ -45,8 +47,15 @@ All responses are JSON objects with the following parameters.
 ```
 
 
+Authentication
+---------------
+In order to have access to either the development or production Patient Health Record API, a `secret` must be provided as a parameter for every request. In addition, every request must use `https`.
 
+``` javascript
+  Example usage of API Key
 
+  curl -XGET https://www.bloomapi.com/api/yourchart/d8c21a1d-2972-46d4-9729-e691bbb6a068?secret=<secret key>
+```
 
 
 Errors
@@ -76,91 +85,141 @@ Example 400 Response
 * 5xx: Server error. Likely caused by a bug in BloomAPI.
 
 
-
-API Key
----------------
-
-Development access at <http://www.bloomapi.com/api> is available without an API key, however, for production access, for https access, or for access to private data sources — an API key is required. Some of the current private datasources include:
-
-* Federal Sanctions List
-* PECOS
-* Hospital Compare
-* ICD-9/10/ Crosswalks
-* HCPCS
-* FDA NDC
-* AHRQ files
-* CCLF (Claims and Claims Line Feed)
-* If you are interested in datasources such as these or unlimited production access, you’ll need a  BloomAPI Account.
-
-Sign Up to request an API Key.
-
-Once you have an API key, it can be added to any request by adding the parameter secret to any request.
-
-``` javascript
-Example Usage of API Key
-
-https://www.bloomapi.com/api/search/usgov.hhs.npi?secret=:api_key_here&key1=practice_address.zip&op1=eq&value1=98101
-```
-
-Programatic Clients
-=======
-
-There are a number of libraries written for BloomAPI Public Data. Several are listed below. Please Let us know if you’ve created your own client so we can list here.
-
-#### NODE.JS/ BROWSER JAVASCRIPT
-
-* BloomJS created by Micheal Wasser.
-
-### .NET
-
-* BloomAPI.net created by Michael Wasser.
-
-### RUBY
-
-* bloom_api Gem created by Dan Carpenter.
-
 Endpoints
 =======
 
-/api/search/:source
+GET /api/search/bloomapi.epic.mychart_locations
 ------------
 
-Returns search results given a datasource. `:source` should be replaced by the datasource your currently searching (for example, `usgov.hhs.npi`).
-
-### Parameters
+Used to locate supported patient portals.
 
 ``` javascript
-  Examples
+Get the list of patient portals or search for a patient portal by facility name
+
+curl -XGET https://www.bloomapi.com/api/search/bloomapi.epic.mychart_locations?secret=<secret key>
+
+or
+
+curl -XGET https://www.bloomapi.com/api/search/bloomapi.epic.mychart_locations?key1=name&op1=prefix&value1=Polyclinic&secret=<secret key>
+
+
+{
+  "result": [
+    {
+      "mychart_branding": "MyChart",
+      "mychart_user_label": "Username",
+      "name": "Metro Health",
+      "org_id": "530",
+      "states": [
+        {
+          "name": "Michigan"
+        }
+      ],
+      "timezone": "America/New_York"
+    },
+    ...
+  ]
+}
 ```
 
-* `key` name of field to filter by. Replace * with any number to set the 'index number’. The index number is used to associate keys with an 'op’ and 'value’.
-* `op` search operation to apply for a given index number. Currently supports the following values:
-  ..* eq exact match
-  ..* gt greater than
-  ..* lt less than
-  ..* gte greater than or equal
-  ..* lte less than or equal
-  ..* prefix experimental matches the prefix of the string. Useful for real-time search/ autocomplete.
-  ..* fuzzy experimental uses a fuzzy match search. Useful for correcting spelling errors.
-* value* value to search for given an index number. String must be uppercase.
-* limit optional, sets the maximum number of records to return. Default is 20 and maximum is 100
-* offset optional, sets a number of records to skip before returning. Default is 0
+POST /api/yourchart
+------------
+
+A records release request can be created by specifying a organization’s patient portal returned from the `/api/search/bloomapi.epic.mychart_locations` endpoint.
+
+To specify an portal to extract records from, send the `org_id` field from the desired `result` in the return from `/api/search/bloomapi.epic.mychart_locations`. The `org_id` in mandatory and must be sent as `orgId`. The request also requires two fields username, the patient’s `username`, and `password`, the patient’s password for the desired portal.
+
+Arguments:
+
+| Name          | type          | Description                  |
+| ------------- |:-------------:|:----------------------------:|:---------|
+| orgId         | integer       | ID for target patient portal | Required |
+| username      | string        | Patient’s username for target| Required |
+| password      | string        | Patient’s password for target| Required |
 
 ``` javascript
-  Query for all clinicians that practice in the zipcode ‘98101’
+  Example Record Creation Request
 
-  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+  curl -XPOST "https://www.bloomapi.com/api/yourchart?secret=<secret key>" /
+     -d "username=nick&password=supersecret&orgId=166"
 
-  Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
+  {
+  "statusId" : "a4785854-8489-493a-9b8f-6bd886dba072"
+  }
+```
 
-  GET http://www.bloomapi.com/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
+GET /api/yourchart/:status_id
+------------
 
+Gets the status of a patient portal request and the patient record when available.
+
+The release will move through the following states:
+
+1. `pending`: BloomAPI has received the request
+2. `authenticated`: BloomAPI has authenticated with the patient portal. This will generally happen within 30 seconds of a request
+3. `complete`: BloomAPI has retrieved records and they are made available in the response
+There is an additional failure state that indicates an internal error has occurred with extracting records from this portal.
+
+Here’s a current complete list of record types that can be requested:
+
+| Name          | Description
+| ------------- |:-------------:|
+| Problems      | Problems list                         |
+| Procedures    | Procedures list                       |
+| History       | Health History                        |
+| Medications   | Current/Historical Medications        |
+| Immunizations | Immunization History                  |
+| Vitals        | Historical Vitals                     |
+| results       | Lab results                           |
+| Encounters    | Descriptions of Historical Encounters |
+
+
+``` javascript
+  curl -XGET "https://www.bloomapi.com/api/yourchart/a4785854-8489-493a-9b8f-6bd886dba072?secret=<secret key>"
+
+  Once pending
+
+  {
+    "state" : "authenticated"
+  }
+
+  Once Authenticated
+
+  {
+    "state" : "authenticated"
+  }
+
+  Once Retrieved
+
+  {
+    "state": "complete",
+    "result": {
+      "patients": [
+        {
+          "name": "Nick Smith",
+          "accountID": "12334",
+          "details": {
+            "encounters": [
+                ...
+            ],
+            "test-results": [
+              ...
+            ]
+          }
+        }
+      ]
+    }
+  }
 ```
 
 
-### Response Fields
 
-This depends on the data sources used. See the Data Sources section for a description of fields for a given data source.
+
+
+
+
+
+
 
 
 /api/sources
